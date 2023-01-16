@@ -5,6 +5,7 @@
 // Qt
 #include <qstring.h>
 
+#include <QDebug>
 #include <QGridLayout>
 #include <QGroupBox>
 #include <QLabel>
@@ -13,6 +14,8 @@
 #include <QPushButton>
 #include <QRadioButton>
 #include <QTextEdit>
+
+#include "core/ytdlp.h"
 
 App::App(QWidget *parent) : QMainWindow(parent), ui(new Ui::App) {
     ui->setupUi(this);
@@ -26,7 +29,7 @@ App::App(QWidget *parent) : QMainWindow(parent), ui(new Ui::App) {
     setCentralWidget(new QWidget(this));
     centralWidget()->setLayout(layout);
 
-    QTextEdit *inputArea = new QTextEdit(this);
+    inputArea = new QTextEdit(this);
     // add input area to the top-left corner
     layout->addWidget(inputArea, 0, 0);
 
@@ -61,6 +64,15 @@ App::App(QWidget *parent) : QMainWindow(parent), ui(new Ui::App) {
     layout->setRowStretch(1, 0);
     layout->setColumnStretch(0, 2);
     layout->setColumnStretch(1, 1);
+
+    connect(downloadButton, SIGNAL(clicked()), this, SLOT(download()));
 }
 
 App::~App() { delete ui; }
+
+void App::download() {
+    QString url = inputArea->toPlainText();
+    qDebug() << url;
+    YtDlp *dl = new YtDlp();
+    dl->download(url);
+}

@@ -9,11 +9,13 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    core/ytdlp.cpp \
     main.cpp \
     app.cpp
 
 HEADERS += \
-    app.h
+    app.h \
+    core/ytdlp.h
 
 FORMS += \
     app.ui
@@ -22,3 +24,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    yt-dlp.exe
